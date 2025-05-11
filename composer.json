@@ -1,5 +1,5 @@
 {
-    "name": "deployer/deployer",
+    "name": "max13/deployer",
     "description": "Deployment Tool",
     "license": "MIT",
     "homepage": "https://deployer.org",
@@ -12,6 +12,9 @@
         {
             "name": "Anton Medvedev",
             "email": "anton@medv.io"
+        },{
+            "name": "Adnan RIHAN",
+            "email": "adnan@rihan.fr"
         }
     ],
     "funding": [
@@ -32,7 +35,7 @@
         "bin/dep"
     ],
     "require": {
-        "php": "^8.0|^7.3",
+        "php": "^7.3|^8.0",
         "ext-json": "*"
     },
     "require-dev": {
