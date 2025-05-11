@@ -17,7 +17,7 @@ set('public_path', function () {
 desc('Configures a server');
 task('provision:server', function () {
     set('remote_user', get('provision_user'));
-    run('usermod -a -G www-data caddy');
+    run('usermod -a -G www-data ssl-certs caddy');
     run("mkdir -p /var/deployer");
     $html = file_get_contents(__DIR__ . '/404.html');
     run("echo $'$html' > /var/deployer/404.html");
