@@ -6,6 +6,8 @@ namespace Deployer;
 
 use function Deployer\Support\escape_shell_argument;
 
+set('use_global_ssl', false);
+
 set('domain', function () {
     return ask(' Domain: ', get('hostname'));
 });
@@ -25,6 +27,7 @@ task('provision:server', function () {
 
 desc('Provision website');
 task('provision:website', function () {
+    $useGlobalSsl = get('use_global_ssl');
     $restoreBecome = become('deployer');
 
     run("[ -d {{deploy_path}} ] || mkdir -p {{deploy_path}}");
@@ -55,6 +58,13 @@ task('provision:website', function () {
         }
     } else {
         run("echo $'$caddyfile' > Caddyfile");
+    }
+
+    if ($useGlobalSsl) {
+        run('head -n1 Caddyfile > Caddyfile.new');
+        run('echo "  tls /etc/ssl/private/caddy.pem /etc/ssl/private/caddy.key" >> Caddyfile.new');
+        run('tail -n+2 Caddyfile >> Caddyfile.new');
+        run('mv Caddyfile.new Caddyfile');
     }
 
     $restoreBecome();
