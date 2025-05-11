@@ -26,6 +26,10 @@ set('bin/composer', function () {
 
 desc('Installs vendors');
 task('deploy:vendors', function () {
+    if (has('github_pat')) {
+        $githubPat = get('github_pat');
+        run("cd {{release_or_current_path}} && {{bin/composer}} config github-oauth.github.com $githubPat");
+    }
     if (!commandExist('unzip')) {
         warning('To speed up composer installation setup "unzip" command with PHP zip extension.');
     }
