@@ -181,6 +181,7 @@ task('provision:install', function () {
         'whois',
     ];
     run('apt-get install -y ' . implode(' ', $packages), ['env' => ['DEBIAN_FRONTEND' => 'noninteractive'], 'timeout' => 900]);
+    run('timedatectl set-timezone ' . get('timezone', 'UTC'));
 })
     ->verbose()
     ->oncePerNode();
